@@ -5,10 +5,35 @@ using System.Text;
 
 namespace EventOrganizerModel
 {
-    public class EventsHistory
+    public class Events
     {
         protected User _user;
-        internal EventsHistory(User dbUser) => _user = dbUser;
+        internal Events(User dbUser)
+        {
+            _user = dbUser;
+
+        }
+
+        private Queue<Event> _upcomingEvents;
+
+        internal void InvokeEventHappened(Event e) => EventHappened.Invoke(this, e);
+
+        public event EventHappenedHandler EventHappened;
+
+        public void Add(Event newEvent)
+        {
+            using (ApplicationDBContext db = new ApplicationDBContext())
+            {
+                db.Events.Add(newEvent);
+                if (newEvent.IsUpcoming || newEvent.IsRunning)
+                {
+                    _upcomingEvents.Prepend(newEvent);
+                    _upcomingEvents.OrderBy(e => e.Start);
+                }
+                db.SaveChanges();
+                
+            }
+        }
 
         private IEnumerable<Event> GetUserEvents()
         {
@@ -31,19 +56,38 @@ namespace EventOrganizerModel
 
         public List<Event> GetEventsForMonth(int monthNo) => GetUserEvents().Where(e => e.Start.Month == monthNo).ToList();
 
+        private void EventsLoop()
+        {
+            var toHistory = new List<Event>();
+            while (EventsPool.Events.Count > 0)
+            {
+                foreach (var eventItem in EventsPool.Events)
+                {
+                    if (eventItem.IsRunning)
+                    {
+                        _eventsPool.InvokeEventHappened(eventItem);
+                        toHistory.Add(eventItem);
+                        if (eventItem.RepeatsTimeSpan.TotalMinutes != 0)
+                        {
+                            var newEvent = eventItem.Clone() as Event;
+                            _dbUser.Events.Add(newEvent);
+                            _dbContext.SaveChanges();
+                        }
+                    }
+                }
+                if (toHistory.Count > 0)
+                {
+                    _eventsPool.Events = _eventsPool.Events.Except(toHistory).ToList();
+                    _dbUser.Events.AddRange(toHistory);
+                    _dbContext.SaveChanges();
+                    toHistory = new List<Event>();
+                }
+                Task.Delay(1000);
+            }
+
+        }
     }
 
     public delegate void EventHappenedHandler(object sender, Event e);
-
-    public class EventsPool : EventsHistory
-    {
-        public List<Event> Events { get; set; } = new List<Event>();
-
-        internal EventsPool(User dbUser) : base(dbUser) => _user = dbUser;
-
-        internal void InvokeEventHappened(Event e) => EventHappened.Invoke(this, e);
-
-        public event EventHappenedHandler EventHappened;
-    }
 
 }

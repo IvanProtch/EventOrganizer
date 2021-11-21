@@ -52,7 +52,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>IEvents.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -64,7 +64,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAABBAEAAQAAAAAAAABAAAAAABQAAIAACACCAAAAEAA=</HashCode>
+      <HashCode>AAABBAAAAQAAAAAAAABAAAAAABQAAIAACACCAAAAAAA=</HashCode>
       <FileName>Organizer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -82,7 +82,7 @@
   <Class Name="EventOrganizerModel.EventsHistory">
     <Position X="7.25" Y="2" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAACAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAgAAAACAA=</HashCode>
       <FileName>IEvents.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -94,7 +94,7 @@
     </TypeIdentifier>
   </Interface>
   <Delegate Name="EventOrganizerModel.EventHappenedHandler" Collapsed="true">
-    <Position X="7.25" Y="7.5" Width="2.25" />
+    <Position X="10.75" Y="6.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>IEvents.cs</FileName>

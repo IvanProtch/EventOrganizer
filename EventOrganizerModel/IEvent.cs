@@ -23,6 +23,21 @@ namespace EventOrganizerModel
                 return DateTime.Now <= End && DateTime.Now >= Start;
             }
         }
+        public bool IsComplete
+        {
+            get
+            {
+                return DateTime.Now >= End;
+            }
+        }
+
+        public bool IsUpcoming
+        {
+            get
+            {
+                return Start <= DateTime.Now;
+            }
+        }
 
         public object Clone()
         {

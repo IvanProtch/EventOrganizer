@@ -44,13 +44,9 @@ namespace EventOrganizerModel
 
                 if(_dbUser != null)
                 {
-                    _eventsHistory = new EventsHistory(_dbUser);
-                    _eventsPool = new EventsPool(_dbUser);
+                    _events = new Events(_dbUser);
 
                     _actualEvents = db.Events.Where(e => e.UserId == _dbUser.Id);
-
-                    Task eventLoopTask = new Task(EventsLoop);
-                    eventLoopTask.Start();
                 }
                 else
                 {
@@ -73,39 +69,10 @@ namespace EventOrganizerModel
             }
         }
 
-        private EventsHistory _eventsHistory;
-        public EventsHistory EventsHistory { get => _eventsHistory; }
+        private Events _events;
+        public Events Events { get => _events; }
 
-        private void EventsLoop()
-        {
-            var toHistory = new List<Event>();
-            while (EventsPool.Events.Count > 0)
-            {
-                foreach (var eventItem in EventsPool.Events)
-                {
-                    if (eventItem.IsRunning)
-                    {
-                        _eventsPool.InvokeEventHappened(eventItem);
-                        toHistory.Add(eventItem);
-                        if(eventItem.RepeatsTimeSpan.TotalMinutes != 0)
-                        {
-                            var newEvent = eventItem.Clone() as Event;
-                            _dbUser.Events.Add(newEvent);
-                            _dbContext.SaveChanges();
-                        }
-                    }
-                }
-                if(toHistory.Count > 0)
-                {
-                    _eventsPool.Events = _eventsPool.Events.Except(toHistory).ToList();
-                    _dbUser.Events.AddRange(toHistory);
-                    _dbContext.SaveChanges();
-                    toHistory = new List<Event>();
-                }
-                Task.Delay(1000);
-            }
 
-        }
 
     }
 
