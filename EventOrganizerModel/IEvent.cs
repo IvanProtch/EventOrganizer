@@ -8,7 +8,7 @@ namespace EventOrganizerModel
         public int EventTypeId { get; set; }
         public int UserId { get; set; }
 
-        public int Id { get; set; }
+        public int Id { get; }
         public string Caption { get; set; }
         public string Description { get; set; }
         public DateTime Start { get; set; }
@@ -26,7 +26,15 @@ namespace EventOrganizerModel
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return new Event()
+            {
+                Caption = this.Caption,
+                Description = this.Description,
+                Start = this.Start + this.RepeatsTimeSpan,
+                End = this.End + this.RepeatsTimeSpan,
+                EventType = this.EventType,
+                RepeatsTimeSpan = this.RepeatsTimeSpan
+            };
         }
     }
 
@@ -39,15 +47,9 @@ namespace EventOrganizerModel
             Reminder
         }
 
-        //public EventType(Types type, Color color)
-        //{
-        //    this.Type = type;
-        //    this.Color = color;
-        //}
         public int Id { get; set; }
         public Types Type { get; set; }
-        //public Color Color { get; set; }
-
+        public string Color { get; set; }
     }
 
 }

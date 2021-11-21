@@ -106,8 +106,6 @@ namespace EventOrganizerModel
                         if(eventItem.RepeatsTimeSpan.TotalMinutes != 0)
                         {
                             var newEvent = eventItem.Clone() as Event;
-                            newEvent.Start += newEvent.RepeatsTimeSpan;
-                            newEvent.End += newEvent.RepeatsTimeSpan;
 
                             _dbUser.Events.Add(newEvent);
                             _dbContext.SaveChanges();
