@@ -20,7 +20,8 @@ namespace EventOrganizerModel
             {
                 if (_user != null)
                 {
-                    return db.Events.Where(e => from <= DateTime.Parse(e.Start.ToString()) && to >= DateTime.Parse(e.End.ToString())).ToList();
+                    return db.Events.Where(e => e.UserId == _user.Id)
+                        .Where(e => from <= DateTime.Parse(e.Start.ToString()) && to >= DateTime.Parse(e.End.ToString())).ToList();
                 }
                 return new List<Event>();
             }
@@ -32,7 +33,7 @@ namespace EventOrganizerModel
             {
                 if (_user != null)
                 {
-                    return db.Events.Take(count).ToList();
+                    return db.Events.Where(e => e.UserId == _user.Id).Take(count).ToList();
                 }
                 return new List<Event>();
             }
