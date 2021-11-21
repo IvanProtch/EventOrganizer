@@ -26,7 +26,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAgAAAAAA=</HashCode>
       <FileName>IEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -47,7 +47,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EventOrganizerModel.EventsPool">
-    <Position X="7.25" Y="4" Width="2.25" />
+    <Position X="7.25" Y="5.25" Width="2.25" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -57,7 +57,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EventOrganizerModel.Organizer">
-    <Position X="10.75" Y="2" Width="2.25" />
+    <Position X="10.75" Y="3.25" Width="2.25" />
     <AssociationLine Name="EventsPool" Type="EventOrganizerModel.EventsPool">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.185" Y="0.058" />
@@ -73,7 +73,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="EventOrganizerModel.ApplicationDBContext">
-    <Position X="13.5" Y="2" Width="2.5" />
+    <Position X="13.5" Y="3.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAQAAAgAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ApplicationDBContext.cs</FileName>
@@ -94,7 +94,7 @@
     </TypeIdentifier>
   </Interface>
   <Delegate Name="EventOrganizerModel.EventHappenedHandler" Collapsed="true">
-    <Position X="7.25" Y="6" Width="2.25" />
+    <Position X="7.25" Y="7.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>IEvents.cs</FileName>

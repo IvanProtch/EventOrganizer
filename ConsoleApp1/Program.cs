@@ -9,9 +9,7 @@ namespace ConsoleApp1
     {
         public static void Main(string[] args)
         {
-            DateTime dateTime = DateTime.Now;
-            EventOrganizerModel.Organizer organizer = new Organizer(new User() {Login = "ipp" }, ref dateTime);
-
+            EventOrganizerModel.Organizer organizer = new Organizer(new User() {Login = "ipp" });
         }
     }
 }

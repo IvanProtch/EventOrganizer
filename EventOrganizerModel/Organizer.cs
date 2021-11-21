@@ -13,10 +13,9 @@ namespace EventOrganizerModel
         private ApplicationDBContext _dbContext;
         private User _dbUser;
         private IQueryable<Event> _actualEvents;
-        public Organizer(IUser user, ref DateTime selectedDateTime)
+        public Organizer(IUser user)
         {
             _user = user;
-            _selectedDateTime = selectedDateTime;
             Init();
         }
 
@@ -50,8 +49,6 @@ namespace EventOrganizerModel
 
                     _actualEvents = db.Events.Where(e => e.UserId == _dbUser.Id);
 
-                    _previousSelectedDateTime = _selectedDateTime;
-
                     Task eventLoopTask = new Task(EventsLoop);
                     eventLoopTask.Start();
                 }
@@ -62,10 +59,6 @@ namespace EventOrganizerModel
 
             }
         }
-
-        private DateTime _previousSelectedDateTime;
-
-        private DateTime _selectedDateTime;
 
         private EventsPool _eventsPool;
         public EventsPool EventsPool
@@ -81,16 +74,7 @@ namespace EventOrganizerModel
         }
 
         private EventsHistory _eventsHistory;
-        public EventsHistory EventsHistory
-        {
-            get
-            {
-                if (_previousSelectedDateTime.Month != _selectedDateTime.Month)
-                    _eventsHistory.Events = _actualEvents.Where(e => e.Start.Month == _selectedDateTime.Month).ToList();
-
-                return _eventsHistory;
-            }
-        }
+        public EventsHistory EventsHistory { get => _eventsHistory; }
 
         private void EventsLoop()
         {
@@ -106,7 +90,6 @@ namespace EventOrganizerModel
                         if(eventItem.RepeatsTimeSpan.TotalMinutes != 0)
                         {
                             var newEvent = eventItem.Clone() as Event;
-
                             _dbUser.Events.Add(newEvent);
                             _dbContext.SaveChanges();
                         }
