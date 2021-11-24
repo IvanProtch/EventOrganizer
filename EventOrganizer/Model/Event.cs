@@ -23,8 +23,7 @@ public class Event : ICloneable
 
 
     public int Id { get; }
-
-    [ForeignKey("EventTypeName")]
+    
     public string EventTypeName { get; set; }
     public int UserId { get; set; }
     public string Caption { get; set; }
